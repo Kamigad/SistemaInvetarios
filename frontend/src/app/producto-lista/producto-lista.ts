@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Producto } from '../producto';
 import { ProductoService } from '../producto.service';
 
@@ -9,7 +9,7 @@ import { ProductoService } from '../producto.service';
   styleUrl: './producto-lista.css',
 })
 export class ProductoLista {
-  productos!: Producto[];
+  productos = signal<Producto[]>([]);
 
   private productoServicio = inject(ProductoService);
 
@@ -22,7 +22,7 @@ export class ProductoLista {
     this.productoServicio.obtenerProductosLista().subscribe(
       {
         next: (datos) => {
-          this.productos = datos;
+          this.productos.set(datos);
         },
         error: (error) => {
           console.error('Error al obtener los productos:', error);
