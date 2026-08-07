@@ -1,6 +1,7 @@
 package gm.inventario.servicio;
 
 import gm.inventario.excepcion.ExistenciasInvalidasExcepcion;
+import gm.inventario.excepcion.ProductoNoEncontradoExcepcion;
 import gm.inventario.modelo.Producto;
 import gm.inventario.repositorio.ProductoRepositorio;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,12 @@ public class ProductoServicio implements IProductoServicio{
 
     @Override
     public Producto buscarProductoId(Integer idProducto) {
-        return this.productoRepositorio.findById(idProducto).orElse(null);
+        Producto producto = this.productoRepositorio.findById(idProducto).orElse(null);
+        if(producto != null){
+            return producto;
+        } else {
+            throw new ProductoNoEncontradoExcepcion("No se encontro el producto con el ID: " + idProducto);
+        }
     }
 
     @Override
