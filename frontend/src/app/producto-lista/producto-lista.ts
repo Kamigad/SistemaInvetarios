@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Producto } from '../producto';
 import { ProductoService } from '../producto.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-producto-lista',
@@ -12,6 +13,7 @@ export class ProductoLista {
   productos = signal<Producto[]>([]);
 
   private productoServicio = inject(ProductoService);
+  private enrutador = inject(Router);
 
   ngOnInit() {
     //Cargar los productos
@@ -30,4 +32,9 @@ export class ProductoLista {
       }
     );
   }
+
+  editarProducto(id: number): void {
+    this.enrutador.navigate(['editar-producto', id]);
+  }
+
 }

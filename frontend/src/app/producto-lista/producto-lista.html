@@ -10,6 +10,7 @@
                 <th scope="col">Descripción</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Existencias</th>
+                <th scope="col" class="text-center">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,9 @@
                     <td>{{producto.descripcion}}</td>
                     <td>{{producto.precio}}</td>
                     <td>{{producto.existencias}}</td>
+                    <td class="text-center">
+                        <button class="btn btn-warning btn-sm me-3" (click)="editarProducto(producto.idProducto!)">Editar</button>
+                    </td>
                 </tr>
             }
         </tbody>
