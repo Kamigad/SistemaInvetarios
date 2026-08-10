@@ -1,5 +1,6 @@
 package gm.inventario.excepcion;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,5 +14,11 @@ public class ManejadorExcepciones {
     public ResponseEntity<ErrorRespuesta> manejarExistenciasInvalidas(ExistenciasInvalidasExcepcion ex){
         ErrorRespuesta error = new ErrorRespuesta(ex.getMessage(), LocalDateTime.now());
         return ResponseEntity.badRequest().body(error);
+    }
+
+    @ExceptionHandler(ProductoNoEncontradoExcepcion.class)
+    public ResponseEntity<ErrorRespuesta> manejarProductoNoEncontrado(ProductoNoEncontradoExcepcion ex){
+        ErrorRespuesta error = new ErrorRespuesta(ex.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }
