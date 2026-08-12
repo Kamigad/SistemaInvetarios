@@ -44,4 +44,17 @@ public class ProductoControlador {
         logger.info("Producto a editar: " + producto);
         return ResponseEntity.ok(producto);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> actualizarProducto(@PathVariable Integer id, @RequestBody Producto productoRecibido){
+
+        Producto producto = this.iProductoServicio.buscarProductoId(id);
+        producto.setDescripcion(productoRecibido.getDescripcion());
+        producto.setPrecio(productoRecibido.getPrecio());
+        producto.setExistencias(productoRecibido.getExistencias());
+        //guardar la informacion
+        logger.info("Producto editado: " + producto);
+        this.iProductoServicio.guardarProducto(producto);
+        return ResponseEntity.ok(producto);
+    }
 }
