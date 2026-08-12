@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Producto } from '../producto';
 import { ProductoService } from '../producto.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -29,6 +29,7 @@ export class EditarProducto {
 
   private productoServicio = inject(ProductoService);
   private ruta = inject(ActivatedRoute);
+  private enrutador = inject(Router);
 
   ngOnInit() {
     this.ruta.params.subscribe(params => {
@@ -50,5 +51,17 @@ export class EditarProducto {
 
   onSubmit() {
     //editar producto
+    this.guardarProducto();
+  }
+
+  guardarProducto() {
+    this.productoServicio.editarProducto(this.id, this.productoForm.value as Producto).subscribe({
+      next: (datos) => this.irProductoLista(),
+      error: (errores) => console.error("Error al editar el producto: " + errores)
+    });
+  }
+
+  irProductoLista() {
+    this.enrutador.navigate(['/productos']);
   }
 }
