@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -56,5 +58,14 @@ public class ProductoControlador {
         logger.info("Producto editado: " + producto);
         this.iProductoServicio.guardarProducto(producto);
         return ResponseEntity.ok(producto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Boolean>> eliminarProducto(@PathVariable Integer id){
+        logger.info("Producto eliminado con id: " + id);
+        this.iProductoServicio.eliminarProductoId(id);
+        Map<String, Boolean> respuesta = new HashMap<>();
+        respuesta.put("eliminado", Boolean.TRUE);
+        return ResponseEntity.ok(respuesta);
     }
 }

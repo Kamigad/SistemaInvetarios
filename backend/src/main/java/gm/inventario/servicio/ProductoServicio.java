@@ -44,6 +44,9 @@ public class ProductoServicio implements IProductoServicio{
 
     @Override
     public void eliminarProductoId(Integer idProducto) {
+        if(this.productoRepositorio.findById(idProducto).isEmpty()){
+            throw new ProductoNoEncontradoExcepcion("No se encontro el id: " + idProducto);
+        }
         this.productoRepositorio.deleteById(idProducto);
     }
 }
