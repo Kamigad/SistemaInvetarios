@@ -23,6 +23,7 @@
                     <td>{{producto.existencias}}</td>
                     <td class="text-center">
                         <button class="btn btn-warning btn-sm me-3" (click)="editarProducto(producto.idProducto!)">Editar</button>
+                        <button (click)="eliminarProducto(producto.idProducto!)" class="btn btn-danger btn-sm">Eliminar</button>
                     </td>
                 </tr>
             }
